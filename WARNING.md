@@ -6,4 +6,4 @@ ascript index.ascript или ascript index.asc
 ```
 *(Но также можно писать не ascript а aScript (более "*вежливый*" вариант)*
 
-если что есть файл [лицензии](https://github.com/asanalinskiy/SourceCode-Asanali.Script/LICENSE) то что ******язык защищён авторскими правами****** (*но пользоватся можно всегда, а менять код нельзя*)
+если что есть файл [лицензии](https://github.com/asanalinskiy/SourceCode-Asanali.Script/blob/main/LICENSE) то что ******язык защищён авторскими правами****** (*но пользоватся можно всегда, а менять код нельзя*)
