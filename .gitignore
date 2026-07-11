@@ -1,0 +1,5 @@
+build/
+dist/
+aScript.spec
+ascript_db.json
+index.ascript
