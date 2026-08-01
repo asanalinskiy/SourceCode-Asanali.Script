@@ -1,0 +1,9 @@
+<this:programmingLanguage>
+    <Language:AsanaliScript
+    realOfficial:site="https://asanaliscript-lang.pages.dev">
+       <Name of="programming language">AsanaliScript</Name>
+        <Version:AsanaliScript>1.0.1</Version:AsanaliScript>
+        <Author:name>Asanali</Author:name>
+        <SourceCode:github>https://github.com/asanalinskiy/SourceCode-Asanali.Script</SourceCode:github>
+    </Language:AsanaliScript>
+</this:programmingLanguage>
