@@ -1,97 +1,87 @@
-## Asanali Script (сокращенно aScript)
+# 😄 Asanali Script (aScript) v1.0
 
-**Asanali Script** — это легкий язык программирования, где компилятор написан на пайтоне и также быстрый (так на самом деле ЯП на пайтоне не такие уж медленные), могу показать пример кода:
-``` Asanali Script
-// --- Тестирование ядра Asanali Script v1.0 ---
+**aScript** — это легкий, фановый и мощный скриптовый язык программирования, построенный на базе гибридной архитектуры (Python, JavaScript и элементы C). Он сочетает в себе простоту системных команд `.bat` файлов, гибкость Python и возможности веб-интерфейсов.
 
-let Developer = Asanali
-let Status = "Active"
+## Главные фичи
+* **Встроенный движок окон:** Через команду `window()` можно мгновенно развернуть графический интерфейс с поддержкой HTML5, CSS (включая эффекты glassmorphism, `backdrop-blur`) и JavaScript.
+* **Голосовой и тональный класс:** Блок `class sound` умеет озвучивать текст голосом робота и генерировать чистые звуковые частоты.
+* **Работа с системой и БД:** Встроенные команды для поиска файлов по маске (`open`), работы с файлами (`join`) и встроенная база данных (`database`), которая автоматически связывает фронтенд в окне с бэкендом на ПК.
 
-echo === Запуск Системы aScript ===
-echo Разработчик: $Developer
-echo Статус движка: $Status
+## Пример кода (`index.asc/index.ascript`)
 
-// Вызываем системную информацию
+```TypeScript
+/*
+ * ===================================================
+ *  AsanaliScript v1.0.0 — Демонстрационный пример кода
+ * ===================================================
+ */
+
+/* 1. Объявление объектов через const и {} */
+const product = {
+    name: "Игровой ПК Quantium",
+    price: 350000,
+    inStock: true
+}
+
+/* 2. TypeScript-переменные со строгой типизацией */
+let customer: string = $User
+let discount: number = 5000
+
+/* 3. Работа с CLI и системной информацией */
+cli.args
 show sys.info
 
-// Инициализируем базу данных для сохранения настроек
-database(
-    saveToDB('user_name', '$Developer')
-    saveToDB('engine_status', '$Status')
-)
+/* 4. Вывод данных с обращением к полям через точку ($obj.prop) */
+echo Покупатель: $customer
+echo Товар: $product.name
+echo Стандартная цена: $product.price ₸
 
-// Сканируем текущую директорию на наличие asc-скриптов
-open *.asc
-
-// Запускаем класс звука и робота
+/* 5. Использование голосового робота и звуковых сигналов */
 class sound {
-    echo Привет, $Developer! Добро пожаловать в твою собственную среду разработки.
-    tone 440
+    echo Уважаемый $customer, ваш заказ $product.name оформлен!
     tone 523
     tone 659
 }
 
-// Разворачиваем стильное UI-окно с эффектом Glassmorphism
+/* 6. Автоматическое сохранение чека в файл */
+join "order_receipt.txt" {
+    write "Чек для $customer\nТовар: $product.name\nСумма: $product.price KZT"
+}
+
+/* 7. Графическое окно window() */
 window(
     const style = `
-        body {
-            background: linear-gradient(135deg, #1e1e2f, #111216);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .window-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            text-align: center;
+        body { background: #0e1017; font-family: 'Segoe UI', sans-serif; }
+        .card { 
+            background: #181b26; 
+            border: 1px solid #00ffcc; 
+            border-radius: 12px; 
+            padding: 24px; 
+            box-shadow: 0 10px 30px rgba(0,255,204,0.1);
             max-width: 400px;
+            margin: auto;
         }
-        h1 {
-            color: #50fa7b;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #bfbfbf;
-            font-size: 14px;
-        }
-        .btn {
-            background: #6272a4;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
+        h2 { color: #00ffcc; margin-top: 0; }
+        .price-tag { font-size: 20px; font-weight: bold; color: #fff; }
+        button { 
+            background: #00ffcc; 
+            color: #0e1017; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%;
             margin-top: 15px;
-            transition: 0.3s;
         }
-        .btn:hover {
-            background: #50fa7b;
-            color: #111216;
-        }
+        button:hover { background: #00e6b8; }
     `
-    <div class="window-card">
-        <h1>Asanali Script</h1>
-        <p>Интерпретатор успешно прочитал этот файл, запустил класс звука и открыл графический интерфейс.</p>
-        <button class="btn" onclick="playBeep(600, 0.2)">Клик по кнопке (Beep)</button>
+    <div class="card">
+        <!-- Комментарий внутри HTML блока -->
+        <h2>$product.name</h2>
+        <p>Покупатель: <strong>$customer</strong></p>
+        <p class="price-tag">Цена: $product.price ₸</p>
+        <button onclick="playBeep(600, 0.2)">Подтвердить оплату</button>
     </div>
 )
 ```
-
-Поддержимаевые функции:<br>
-| Функция | Что делает |
-| :--- | :--- |
-| `echo текст` | Выводит текст "текст" на экран |
-| `let a = 1` | Создаёт переменную `a` со значением `1` |
-| `window( *css in const style and html in window()*` | Создаёт окошко, где за интерфейс отвечает монолитный HTML |
-| `show sys.info` | Показывает инфу о системе **ИМЕННО** через C файл |
-| `class sound { echo текст }` | Говорит роботизированным голосом слово "текст" |
-| `$a` | (при `a=1`) как `echo`, но выводит значение переменной `a` |
-
-Есть ещё много функций, но пока я их не знаю.
