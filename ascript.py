@@ -41,7 +41,6 @@ class AScriptInterpreter:
         self.lines = []
         self.current_line = 0
 
-        # Инициализация синтезатора речи
         try:
             self.tts_engine = pyttsx3.init()
             self.tts_engine.setProperty('rate', 170)
@@ -49,10 +48,6 @@ class AScriptInterpreter:
             self.tts_engine = None
 
     def strip_comments(self, code: str) -> str:
-        """
-        Удаляет многострочные /* ... */ и однострочные // комментарии.
-        Игнорирует блоки window(...), сохраняя внутри HTML/CSS.
-        """
         parts = re.split(r'(window\s*\(.*?\))', code, flags=re.DOTALL)
         processed_parts = []
 
@@ -67,11 +62,6 @@ class AScriptInterpreter:
         return "".join(processed_parts)
 
     def replace_variables(self, text: str) -> str:
-        """
-        Поддерживает интерполяцию обычных переменных ($var) 
-        и вложенных свойств объектов ($massiveVariable.price).
-        """
-        # 1. Поиск вложенных свойств $obj.prop
         def replace_nested(match):
             obj_name = match.group(1)
             prop_name = match.group(2)
@@ -81,7 +71,6 @@ class AScriptInterpreter:
 
         text = re.sub(r'\$([a-zA-Z_][a-zA-Z0-9_]*)\.([a-zA-Z_][a-zA-Z0-9_]*)', replace_nested, text)
 
-        # 2. Поиск обычных скалярных переменных $var
         for var, val in self.variables.items():
             if not isinstance(val, dict):
                 text = text.replace(f"${var}", str(val))
@@ -89,7 +78,6 @@ class AScriptInterpreter:
         return text
 
     def check_type(self, val_str: str, expected_type: str) -> tuple[bool, object]:
-        """Строгая валидация типов TypeScript"""
         val_str = val_str.strip()
         expected_type = expected_type.strip()
 
@@ -157,10 +145,7 @@ class AScriptInterpreter:
         return "".join(block_lines)
 
     def parse_object(self, raw_str: str) -> dict:
-        """Преобразует JS-подобный объект { key: value } в Python-словарь"""
-        # Превращаем ключи без кавычек в валидный JSON (price: 100 -> "price": 100)
         json_like = re.sub(r'([a-zA-Z_][a-zA-Z0-9_]*)\s*:', r'"\1":', raw_str)
-        # Истинное значение true/false в Python/JSON формат
         json_like = json_like.replace("true", "true").replace("false", "false")
         return json.loads(json_like)
 
@@ -179,7 +164,6 @@ class AScriptInterpreter:
             line = self.lines[self.current_line]
             clean_line = line.strip()
 
-            # --- 1. Интерфейсы TypeScript ---
             if clean_line.startswith("interface "):
                 match = re.match(r"interface\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\{", clean_line)
                 if match:
@@ -190,7 +174,6 @@ class AScriptInterpreter:
                 else:
                     self.current_line += 1
 
-            # --- 2. Переменные let / const (числа, строки, объекты { }) ---
             elif clean_line.startswith("let ") or clean_line.startswith("const "):
                 content = re.sub(r'^(let|const)\s+', '', clean_line)
                 match = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:\s*:\s*([a-zA-Z0-9_<>|]+))?\s*=\s*(.*)", content)
@@ -200,9 +183,7 @@ class AScriptInterpreter:
                     var_type = match.group(2)
                     raw_val = match.group(3).strip()
 
-                    # А) Если присваивается объект { ... }
                     if raw_val.startswith("{"):
-                        # Если объект разбивается на несколько строк, дособираем его
                         obj_str = raw_val
                         while not obj_str.endswith("}") and self.current_line + 1 < len(self.lines):
                             self.current_line += 1
@@ -215,7 +196,6 @@ class AScriptInterpreter:
                             print(f"[aScript Error] Ошибка синтаксиса объекта '{var_name}': {e}")
                             sys.exit(1)
 
-                    # Б) Обычное скалярное значение
                     else:
                         if var_type:
                             is_valid, parsed_val = self.check_type(raw_val, var_type)
@@ -229,12 +209,10 @@ class AScriptInterpreter:
 
                 self.current_line += 1
 
-            # --- 3. Вывод echo ---
             elif clean_line.startswith("echo "):
                 print(self.replace_variables(clean_line[5:].strip()))
                 self.current_line += 1
 
-            # --- 4. CLI Модуль ---
             elif clean_line.startswith("cli."):
                 if clean_line.startswith("cli.args"):
                     print(f"[CLI Args]: {sys.argv[1:]}")
@@ -246,13 +224,11 @@ class AScriptInterpreter:
                     sys.exit(0)
                 self.current_line += 1
 
-            # --- 5. Класс звука и речи ---
             elif clean_line.startswith("class sound {") or clean_line.startswith("class sound{"):
                 self.current_line += 1
                 sound_code = self.execute_block_content()
                 self.process_sound(sound_code)
 
-            # --- 6. Условия if / else ---
             elif clean_line.startswith("if "):
                 match = re.match(r"if\s+(.*)\s*\{", clean_line)
                 if match:
@@ -272,7 +248,6 @@ class AScriptInterpreter:
                 self.current_line += 1
                 self.skip_block()
 
-            # --- 7. Подключение и запись файлов join ---
             elif clean_line.startswith("join "):
                 match = re.match(r"join\s+['\"](.*?)['\"]\s*\{", clean_line)
                 if match:
@@ -288,18 +263,15 @@ class AScriptInterpreter:
                 else:
                     self.current_line += 1
 
-            # --- 8. База данных database() ---
             elif clean_line.startswith("database("):
                 self.current_line += 1
                 _ = self.execute_block_content(end_trigger=")")
                 print("[aScript DB] База данных инициализирована.")
 
-            # --- 9. Системная инфа ---
             elif clean_line == "show sys.info":
                 print(f"\n--- aScript System Info ---\nUser: {self.variables['User']}\nOS: {sys.platform}\nVersion: {self.variables['VERSION']}\n")
                 self.current_line += 1
 
-            # --- 10. Поиск файлов open ---
             elif clean_line.startswith("open "):
                 raw_path = clean_line[5:].strip()
                 resolved_path = self.replace_variables(raw_path)
@@ -311,7 +283,6 @@ class AScriptInterpreter:
                     print("-> Файлы не найдены.")
                 self.current_line += 1
 
-            # --- 11. Графика window() ---
             elif clean_line.startswith("window("):
                 self.current_line += 1
                 ui_code = self.execute_block_content(end_trigger=")")
@@ -340,23 +311,14 @@ class AScriptInterpreter:
                         winsound.Beep(freq, 400)
 
     def render_window(self, full_code: str):
-        css_style = ""
-        html_content = full_code
-
-        style_match = re.search(r"const style\s*=\s*`([\s\S]*?)`", full_code)
-        if style_match:
-            css_style = style_match.group(1)
-            html_content = full_code.replace(style_match.group(0), "")
+        # Переменные AsanaliScript ($var) парсятся напрямую в HTML
+        html_content = self.replace_variables(full_code)
 
         html_template = f"""
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="UTF-8">
-            <style>
-                body {{ margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background: #111216; color: #fff; display: flex; flex-direction: column; align-items: center; }}
-                {css_style}
-            </style>
         </head>
         <body>
             {html_content}
@@ -387,7 +349,6 @@ class AScriptInterpreter:
 
 
 if __name__ == "__main__":
-    # Автоустановка в PATH для Windows
     if sys.platform == "win32":
         import winreg
         import ctypes
