@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<asanaliScript version="1.2">
+    <environment>
+        <runtimeTarget>browser</runtimeTarget>
+        <executionEngine>native</executionEngine>
+        <maxMemoryAllocation>512MB</maxMemoryAllocation>
+    </environment>
+    
+    <compilerSettings>
+        <strictMode>true</strictMode>
+        <optimizeOutput>true</optimizeOutput>
+        <sourceMapEnabled>false</sourceMapEnabled>
+        <targetEncoding>UTF-8</targetEncoding>
+    </compilerSettings>
+
+    <!-- Секция поддержки и совместимости -->
+    <supportPolicy>
+        <deprecatedFeaturesAllowed>false</deprecatedFeaturesAllowed>
+        <backwardCompatibility>v2.0</backwardCompatibility>
+        <activeSupportStatus>active</activeSupportStatus>
+        <securityUpdatesEnabled>true</securityUpdatesEnabled>
+    </supportPolicy>
+
+    <!-- Что нового в этой версии конфигурации / окружения -->
+    <whatsNew>
+        <feature name="AsyncModuleLoading" status="stable" description="Ускорена загрузка модулей за счет оптимизированного порядка инициализации." />
+        <feature name="LocalStatePersist" status="preview" description="Добавлена базовая поддержка сохранения локального состояния без костылей." />
+        <fix name="MemoryLeakPatch" description="Устранены утечки памяти при частом пересоздании DOM-элементов." />
+    </whatsNew>
+
+    <modules>
+        <module name="CoreLogic" enabled="true" priority="high" support="full" />
+        <module name="DOMManager" enabled="true" priority="normal" support="full" />
+        <module name="EventDispatcher" enabled="false" priority="low" support="deprecated" />
+    </modules>
+
+    <logging>
+        <outputChannel>console</outputChannel>
+        <logLevel>verbose</logLevel>
+        <saveToFile>false</saveToFile>
+    </logging>
+</asanaliScript>
