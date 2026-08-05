@@ -1,11 +1,10 @@
 <?asanalidev encoding="UTF-8"?>
-<this:programmingLanguage>
-    <Language:AsanaliScript
-    realOfficial:site="https://asanaliscript-lang.pages.dev"
+<ProgrammingLanguage>
+    <AsanaliScript
+    xmlns:ascript="https://asanalidev.github.io/SourceCode-Asanali.Script/asanaliscript"
     type="default">
        <Name of="programming language">AsanaliScript</Name>
-        <Version:AsanaliScript>1.0.2</Version:AsanaliScript>
-        <Author:name>Asanali</Author:name>
-        <SourceCode:github >https://github.com/asanalidev/SourceCode-Asanali.Script</SourceCode:github>
-    </Language:AsanaliScript>
-</this:programmingLanguage>
+        <VersionAsanaliScript>1.0.2</VersionAsanaliScript>
+        <AuthorName>Asanali</AuthorName>
+    </AsanaliScript>
+</ProgrammingLanguage>
