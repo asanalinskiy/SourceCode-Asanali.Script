@@ -1,9 +1,11 @@
+<?asanalidev encoding="UTF-8"?>
 <this:programmingLanguage>
     <Language:AsanaliScript
-    realOfficial:site="https://asanaliscript-lang.pages.dev">
+    realOfficial:site="https://asanaliscript-lang.pages.dev"
+    type="default">
        <Name of="programming language">AsanaliScript</Name>
-        <Version:AsanaliScript>1.0.1</Version:AsanaliScript>
+        <Version:AsanaliScript>1.0.2</Version:AsanaliScript>
         <Author:name>Asanali</Author:name>
-        <SourceCode:github>https://github.com/asanalinskiy/SourceCode-Asanali.Script</SourceCode:github>
+        <SourceCode:github >https://github.com/asanalidev/SourceCode-Asanali.Script</SourceCode:github>
     </Language:AsanaliScript>
 </this:programmingLanguage>
