@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsanaliScript Language</title>
+    <link rel="icon" href="icon.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #282c34;
+            color: #abb2bf;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #21252b;
+            border-bottom: 1px solid #181a1f;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.8rem;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin: 0;
+            color: #9da5b4;
+        }
+
+        h2 {
+            color: #6139FF;
+            border-bottom: 1px solid #3e4451;
+            padding-bottom: 8px;
+            margin-top: 45px;
+        }
+
+        h3 {
+            color: #da7dae;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #6139FF;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #4b27db;
+        }
+
+        .btn-secondary {
+            background-color: #3e4451;
+            color: #abb2bf;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5263;
+        }
+
+        pre {
+            background-color: #181a1f;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid #21252b;
+        }
+
+        code {
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.95rem;
+        }
+
+        .kwd { color: #c678dd; }
+        .str { color: #98c379; }
+        .num { color: #d19a66; }
+        .var { color: #e06c75; }
+        .typ { color: #56b6c2; }
+        .com { color: #5c6370; font-style: italic; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background-color: #21252b;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #181a1f;
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #21252b;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .spec-table th, .spec-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #181a1f;
+        }
+
+        .spec-table th {
+            background-color: #181a1f;
+            color: #6139FF;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #5c6370;
+            font-size: 0.9rem;
+            border-top: 1px solid #21252b;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AsanaliScript Language</h1>
+        <p class="subtitle">Независимый скриптовый язык программирования и экосистема разработки v2.1.0-TS</p>
+        
+        <div class="btn-container">
+            <a href="https://github.com/asanalinskiy/AsanaliScript-IDE/releases/download/v1.0.0/AsanaliScript.IDE.zip" class="btn" id="download-btn">IDE</a>
+            <a href="https://github.com/asanalinskiy/SourceCode-Asanali.Script" class="btn btn-secondary">Репозиторий GitHub</a>
+            <a href="https://github.com/asanalinskiy/asanaliscript.js" class="btn">JS Фреймворк @latest</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <h2>О языке AsanaliScript</h2>
+        <p>
+            <b>AsanaliScript</b> — это интерпретируемый декларативно-императивный язык программирования со строгой типизацией TypeScript-уровня, лаконичным синтаксисом и встроенными модулями. Язык специально разработан для быстрого построения пользовательских интерфейсов, генерации низкоуровневых звуковых частот, синтеза речи и работы с локальными базами данных.
+        </p>
+
+        <h2>Спецификация экосистемы</h2>
+        <table class="spec-table">
+            <thead>
+                <tr>
+                    <th>Компонент</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Расширения файлов</td>
+                    <td><code>.asc</code>, <code>.ascript</code></td>
+                </tr>
+                <tr>
+                    <td>Пакетный менеджер / Ядро</td>
+                    <td><code>asanaliscript</code> (доступно в реестре npm)</td>
+                </tr>
+                <tr>
+                    <td>Среда выполнения</td>
+                    <td>2.1.0-TS Engine (Web-runtime & Native Python Console)</td>
+                </tr>
+                <tr>
+                    <td>Среда разработки</td>
+                    <td>Официальная IDE в классическом стиле Atom (One Dark)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Архитектура и Синтаксис Языка v2.1.0-TS</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Строгая типизация TS</h3>
+                <p>Поддержка интерфейсов и типов данных (<code>string</code>, <code>number</code>, <code>boolean</code>) с валидацией во время выполнения.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Звук и Синтез речи</h3>
+                <p>Встроенный класс <code>class sound</code> для воспроизведения тоновых частот и озвучки текста через робота.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Управление объектами</h3>
+                <p>Поддержка JSON-подобных структур и интерполяции вложенных свойств через синтаксис <code>$massiveVariable.price</code>.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Базы данных и CLI</h3>
+                <p>Встроенное управление локальными JSON-хранилищами и взаимодействие с консолью ОС через модуль <code>cli.*</code>.</p>
+            </div>
+        </div>
+
+        <h2>Пример кода на AsanaliScript</h2>
+        <pre><code><span class="com">/* Определение типов и интерфейса */</span>
+<span class="kwd">interface</span> <span class="typ">Product</span> {
+    id: <span class="typ">number</span>
+    title: <span class="typ">string</span>
+}
+
+<span class="com">/* Создание переменной со строгой типизацией */</span>
+<span class="kwd">let</span> <span class="var">version</span>: <span class="typ">string</span> = <span class="str">"2.1.0-TS"</span>
+<span class="kwd">let</span> <span class="var">item</span> = { price: <span class="num">100</span>, name: <span class="str">"Core"</span> }
+
+<span class="kwd">echo</span> <span class="str">"Запуск AsanaliScript $version..."</span>
+<span class="kwd">echo</span> <span class="str">"Цена компонента: $item.price"</span>
+
+<span class="com">/* Условия и обработка звука */</span>
+<span class="kwd">if</span> $User == <span class="str">"Asanali"</span> {
+    <span class="kwd">class sound</span> {
+        <span class="kwd">echo</span> <span class="str">"Приветствуем разработчика!"</span>
+        <span class="kwd">tone</span> <span class="num">440</span>
+    }
+} <span class="kwd">else</span> {
+    <span class="kwd">echo</span> <span class="str">"Гостевой режим"</span>
+}</code></pre>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AsanaliScript Ecosystem. Все права защищены.</p>
+    </footer>
+
+    <script>
+        const downloadBtn = document.getElementById('download-btn');
+
+        downloadBtn.addEventListener('click', (e) => {
+            console.log('Запрос на скачивание AsanaliScript IDE v2.1.0-TS');
+        });
+
+        const asciiLogo = `
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⠿⢿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢀⡄⠸⣿⣿⣿⠋⢀⣤⣤⣨⣿⣿⡿⠉⣠⣤⣤⣼⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢸⣿⠀⢻⣿⣿⣄⠈⠛⠻⢿⣿⣿⠁⢰⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠉⠉⠁⠈⣿⣿⣿⣿⣶⣄⠀⢹⣿⡄⠘⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣁⣰⣿⣿⣿⣀⣸⣿⣅⣉⠉⢁⣠⣾⣿⣷⣄⣈⠉⢉⣨⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+`;
+
+        console.log(`%c${asciiLogo}`, 'color: #6139FF; font-weight: bold; font-family: monospace;');
+    </script>
+</body>
+</html>
