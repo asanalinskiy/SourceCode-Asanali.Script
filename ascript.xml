@@ -1,10 +1,111 @@
 <?asanalidev encoding="UTF-8"?>
-<ProgrammingLanguage>
-    <AsanaliScript
-    xmlns:ascript="https://asanalidev.github.io/SourceCode-Asanali.Script/asanaliscript"
-    type="default">
-       <Name of="programming language">AsanaliScript</Name>
-        <VersionAsanaliScript>1.0.2</VersionAsanaliScript>
-        <AuthorName>Asanali</AuthorName>
-    </AsanaliScript>
-</ProgrammingLanguage>
+<!-- 
+    СПРАВОЧНИК И ИНТЕРАКТИВНОЕ РУКОВОДСТВО ПО ASANALISCRIPT (aScript v2.1-TS)
+    Этот XML объясняет синтаксис языка и содержит тестовый код для запуска.
+-->
+
+<AsanaliScriptLanguage name="AsanaliScript" extension=".asc" version="2.1.0-TS">
+
+    <!-- ================================================================= -->
+    <!-- 1. ТЕСТОВЫЙ КОД (ГОТОВЫЙ ПРИМЕР ДЛЯ ЗАПУСКА В .asc)               -->
+    <!-- ================================================================= -->
+    <TestScriptDemo description="Скопируй этот код в файл main.asc и запусти через интерпретатор">
+        <SourceCode><![CDATA[
+// === 1. Объявление переменных и объектов ===
+let appTitle = "AsanaliScript Control Panel"
+let isSystemReady = true
+let systemInfo = { status: "Active", port: 3000 }
+
+// === 2. Консольный вывод (echo) ===
+echo "Запуск приложения: $appTitle"
+echo "Пользователь: $User | Оation System: $ARCH"
+
+// === 3. Логика и условия (if / else) ===
+if $isSystemReady == true {
+    echo "Система готова! Статус: $systemInfo.status"
+} else {
+    echo "Ошибка инициализации системы!"
+}
+
+// === 4. Веб-маршрут (бэкенд API) ===
+route GET "/api/status" {
+    {"app": "$appTitle", "user": "$User", "status": "online"}
+}
+
+// === 5. Графический UI и верстка (window) ===
+window(
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            max-width: 400px;
+        }
+        h1 { color: #38bdf8; margin-top: 0; }
+        button {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0369a1; }
+    </style>
+
+    <div class="card">
+        <h1>$appTitle</h1>
+        <p>Привет, <b>$User</b>!</p>
+        <p>Сервер запущен на порту: <code>$systemInfo.port</code></p>
+        <button onclick="alert('AsanaliScript работает идеально!')">Проверить связь</button>
+    </div>
+)
+        ]]></SourceCode>
+    </TestScriptDemo>
+
+
+    <!-- ================================================================= -->
+    <!-- 2. СПРАВОЧНИК СИНТАКСИСА И ПРАВИЛ                                 -->
+    <!-- ================================================================= -->
+    <SyntaxGuide>
+        
+        <Rule category="Переменные">
+            <Keyword>let / const</Keyword>
+            <Description>Создают переменные и объекты. Вызываются через знак $</Description>
+            <Example>let name = "Asanali" -> $name</Example>
+        </Rule>
+
+        <Rule category="Системные переменные">
+            <Keyword>$User, $ARCH, $VERSION</Keyword>
+            <Description>Встроенные данные о ПК и версии языка, подставляются автоматически</Description>
+            <Example>echo "Привет, $User"</Example>
+        </Rule>
+
+        <Rule category="Условия">
+            <Keyword>if / else</Keyword>
+            <Description>Проверяет равенство (==) или неравенство (!=)</Description>
+            <Example>if $status == "ok" { ... }</Example>
+        </Rule>
+
+        <Rule category="Интерфейс (UI)">
+            <Keyword>window(...)</Keyword>
+            <Description>Окно приложения. Внутри пишется чистый HTML/CSS со вставкой переменных $var</Description>
+            <Example>window( &lt;h1&gt;$appTitle&lt;/h1&gt; )</Example>
+        </Rule>
+
+        <Rule category="Бэкенд">
+            <Keyword>route GET / POST</Keyword>
+            <Description>Создает веб-страницу или JSON-ответ для браузера</Description>
+            <Example>route GET "/info" { {"user": "$User"} }</Example>
+        </Rule>
+
+    </SyntaxGuide>
+
+</AsanaliScriptLanguage>
