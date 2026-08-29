@@ -1,4 +1,1 @@
-*.xml linguist-detectable=true
 *.md linguist-detectable
-*.png linguist-detectable=true
-*.easteregg linguist-language=Text linguist-detectable=true
